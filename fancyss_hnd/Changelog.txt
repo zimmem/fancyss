@@ -1,5 +1,17 @@
 fancyss_hnd Changelog
 ===========================================
+1.7.3
+   - update	更新v2ray-plugin二进制到1.2.0
+1.7.2
+   - add	新增Shadowsocks的v2ray-plugin支持
+   - fix	修复了节点列表拖拽排序后，因为没有刷新节点选择导致的保存时覆盖了错误位置的节点配置
+   - fix	修复了从节点列表删除节点后帐号设置的节点选择选项没有更新的问题
+1.7.1
+   - fix	修复【节点域名解析DNS服务器】无法选择IBM DNS的问题；
+   - update	更新内置v2ray二进制到v4.20.0；
+   - update	更新内置规则到最新，chnroute.txt更换为ipip.net源；
+   - update	大陆白名单IP段数量增加ip数量显示。
+
 1.7.0
    - fix	修复因css丢失导致官改固件的科学上网插件rog皮肤显示不正常的问题。
 

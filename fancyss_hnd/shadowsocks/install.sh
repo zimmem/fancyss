@@ -71,6 +71,7 @@ rm -rf /koolshare/bin/speederv2
 rm -rf /koolshare/bin/udp2raw
 rm -rf /koolshare/bin/v2ray
 rm -rf /koolshare/bin/v2ctl
+rm -rf /koolshare/bin/v2ray-plugin
 rm -rf /koolshare/bin/https_dns_proxy
 rm -rf /koolshare/bin/haveged
 rm -rf /koolshare/bin/https_dns_proxy
@@ -150,7 +151,7 @@ dbus set softcenter_module_shadowsocks_title="科学上网"
 dbus set softcenter_module_shadowsocks_description="科学上网 for merlin hnd"
 
 # 设置v2ray 版本号
-dbus set ss_basic_v2ray_version="v4.19.1"
+dbus set ss_basic_v2ray_version="v4.20.1"
 
 echo_date 一点点清理工作...
 rm -rf /tmp/shadowsocks* >/dev/null 2>&1

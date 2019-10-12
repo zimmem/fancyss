@@ -3137,7 +3137,7 @@ function save_failover() {
 												<script type="text/javascript">
 													var option_dnsc = [["1", "运营商DNS【自动获取】"], ["2", "阿里DNS1【223.5.5.5】"], ["3", "阿里DNS2【223.6.6.6】"], ["4", "114DNS1【114.114.114.114】"], ["5", "114DNS2【114.114.115.115】"], ["6", "cnnic DNS1【1.2.4.8】"], ["7", "cnnic DNS2【210.2.4.8】"], ["8", "oneDNS1【117.50.11.11】"], ["9", "oneDNS2【117.50.11.22】"], ["10", "百度DNS【180.76.76.76】"], ["11", "DNSpod DNS【119.29.29.29】"], ["12", "自定义DNS"]];
 													var option_dnsf = [["3", "dns2socks"], ["4", "ss-tunnel"], ["1", "cdns"], ["5", "chinadns1"], ["2", "chinadns2"], ["6", "https_dns_proxy"], ["7", "v2ray_dns"], ["8", "直连"]];
-													var option_dnsr = [["1", "运营商DNS【自动获取】"], ["2", "阿里DNS1【223.5.5.5】"], ["3", "阿里DNS2【223.6.6.6】"], ["4", "114DNS1【114.114.114.114】"], ["5", "114DNS2【114.114.115.115】"], ["6", "cnnic DNS1【1.2.4.8】"], ["7", "cnnic DNS2【210.2.4.8】"], ["8", "oneDNS1【117.50.11.11】"], ["9", "oneDNS2【117.50.11.22】"], ["10", "百度DNS【180.76.76.76】"], ["11", "DNSpod DNS【119.29.29.29】"], ["13", "google DNS1【8.8.8.8】"], ["13", "google DNS2【8.8.4.4】"], ["13", "IBM DNS【9.9.9.9】"], ["12", "自定义DNS"]];
+													var option_dnsr = [["1", "运营商DNS【自动获取】"], ["2", "阿里DNS1【223.5.5.5】"], ["3", "阿里DNS2【223.6.6.6】"], ["4", "114DNS1【114.114.114.114】"], ["5", "114DNS2【114.114.115.115】"], ["6", "cnnic DNS1【1.2.4.8】"], ["7", "cnnic DNS2【210.2.4.8】"], ["8", "oneDNS1【117.50.11.11】"], ["9", "oneDNS2【117.50.11.22】"], ["10", "百度DNS【180.76.76.76】"], ["11", "DNSpod DNS【119.29.29.29】"], ["13", "google DNS1【8.8.8.8】"], ["14", "google DNS2【8.8.4.4】"], ["15", "IBM DNS【9.9.9.9】"], ["12", "自定义DNS"]];
 													var ph1 = "需端口号如：8.8.8.8:53"
 													var ph2 = "需端口号如：8.8.8.8#53"
 													var ph3 = "# 填入自定义的dnsmasq设置，一行一个&#10;# 例如hosts设置：&#10;address=/weibo.com/2.2.2.2&#10;# 防DNS劫持设置：&#10;bogus-nxdomain=220.250.64.18"
@@ -3365,19 +3365,35 @@ function save_failover() {
 														_tmp[1] = _i + ":00时";
 														option_ruleu.push(_tmp);
 													}
+													function addCommas(nStr) {
+														nStr += '';
+														var x = nStr.split('.');
+														var x1 = x[0];
+														var x2 = x.length > 1 ? '.' + x[1] : '';
+														var rgx = /(\d+)(\d{3})/;
+														while (rgx.test(x1)) {
+														    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+														}
+														return x1 + x2;
+													}
+													//var ipsn='<% nvram_get("chnroute_ips"); %>'
+													var gfwl = addCommas('<% nvram_get("ipset_numbers"); %>');
+													var chnl = addCommas('<% nvram_get("chnroute_numbers"); %>');
+													var chnn = addCommas('<% nvram_get("chnroute_ips"); %>');
+													var cdnn = addCommas('<% nvram_get("cdn_numbers"); %>');
 													$('#table_rules').forms([
 														{ title: 'gfwlist域名数量', multi: [
-															{ suffix: '<% nvram_get("ipset_numbers"); %>&nbsp;条，最后更新版本：' },
+															{ suffix: '<em>'+ gfwl +'</em>&nbsp;条，版本：' },
 															{ suffix: '<a href="https://github.com/hq450/fancyss/blob/master/rules/gfwlist.conf" target="_blank">' },
 															{ suffix: '<i><% nvram_get("update_ipset"); %></i></a>' },
 														]},
 														{ title: '大陆白名单IP段数量', multi: [
-															{ suffix: '<% nvram_get("chnroute_numbers"); %>&nbsp;行，最后更新版本：' },
+															{ suffix: '<em>'+ chnl +'</em>&nbsp;行，包含 <em>' + chnn + '</em>&nbsp;个ip地址，版本：' },
 															{ suffix: '<a href="https://github.com/hq450/fancyss/blob/master/rules/chnroute.txt" target="_blank">' },
 															{ suffix: '<i><% nvram_get("update_chnroute"); %></i></a>' },
 														]},
 														{ title: '国内域名数量（cdn名单）', multi: [
-															{ suffix: '<% nvram_get("cdn_numbers"); %>&nbsp;条，最后更新版本：' },
+															{ suffix: '<em>'+ cdnn +'</em>&nbsp;条，版本：' },
 															{ suffix: '<a href="https://github.com/hq450/fancyss/blob/master/rules/cdn.txt" target="_blank">' },
 															{ suffix: '<i><% nvram_get("update_cdn"); %></i></a>' },
 														]},

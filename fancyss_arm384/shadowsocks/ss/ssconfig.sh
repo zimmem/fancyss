@@ -1600,7 +1600,7 @@ kill_cron_job(){
 }
 #--------------------------------------nat part begin------------------------------------------------
 load_tproxy(){
-	MODULES="xt_TPROXY xt_socket xt_comment"
+	MODULES="nf_tproxy_core xt_TPROXY xt_socket xt_comment"
 	OS=$(uname -r)
 	# load Kernel Modules
 	echo_date 加载TPROXY模块，用于udp转发...
@@ -1622,7 +1622,7 @@ load_tproxy(){
 		fi
 	done
 	
-	if [ $modules_loaded -ne 2 ]; then
+	if [ $modules_loaded -ne 3 ]; then
 		echo "One or more modules are missing, only $(( modules_loaded+1 )) are loaded. Can't start.";
 		close_in_five
 	fi
@@ -1982,6 +1982,7 @@ write_numbers(){
 	nvram set update_cdn="$(cat /koolshare/ss/rules/version | sed -n 4p | sed 's/#/\n/g'| sed -n 1p)"
 	nvram set ipset_numbers=$(cat /koolshare/ss/rules/gfwlist.conf | grep -c ipset)
 	nvram set chnroute_numbers=$(cat /koolshare/ss/rules/chnroute.txt | grep -c .)
+	nvram set chnroute_ips=$(awk -F "/" '{sum += 2^(32-$2)};END {print sum}' /koolshare/ss/rules/chnroute.txt)
 	nvram set cdn_numbers=$(cat /koolshare/ss/rules/cdn.txt | grep -c .)
 }
 
